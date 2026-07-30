@@ -8,12 +8,14 @@ Living in a multiple story home means I spend a lot of time downstairs, leaving 
 
 -------- Proposed Solution --------
 
-An open loop security system which will have a password system involving levers and a button to turn the system on and of. When active, a laser shines into a light detector which triggers a buzzing noise and records the time if someone enters the room and blocks the beam. To stop someone from unplugging the device, it logs the time every minute to a single variable. Every new minute it deletes and replaces the previous time in the memory. This means if the system is turned off the memory still retains the very last time it was active, letting you know exactly when it stopped working.
+An open loop security system which will have a password system involving buttons to turn the system on and of. When active, a laser shines into a light detector which triggers a buzzing noise and records the time if someone enters the room and blocks the beam. To stop someone from unplugging the device, it logs the time every minute to a single variable. Every new minute it deletes and replaces the previous time in the memory. This means if the system is turned off the memory still retains the very last time it was active, letting you know exactly when it stopped working.
 
 ### Key Actions
  - Password system to turn the mechanism on/off
- - Buzzer rings and records the time a person enters
-
+ - Laser shines into a light detector triggering a buzzing noise
+ - Records the time a person enters
+ - Every minute it deletes and replaces the previous time in the memory.
+ - Memory retains the very last time it was active
 
 ### Functional Requirements
 
