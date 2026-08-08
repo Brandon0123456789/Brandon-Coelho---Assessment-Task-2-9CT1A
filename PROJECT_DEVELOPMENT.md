@@ -73,3 +73,70 @@ Accuracy - The light detector must have 100% accuracy in distinguishing between 
 
 
 ### Psuedocode
+START
+
+    --- System Setup ---
+    Set up system and memory variables
+    Turn system ON
+    Set alarm state to ON
+    Turn laser ON
+    Run Minute_logging()
+
+    --- Main Monitoring ---
+    LOOP forever
+        Check light detector
+        IF laser is NOT blocked THEN
+            INPUT 'Continue monitoring?'
+                IF answer == NO THEN
+                    Turn system OFF
+                    EXIT LOOP
+                ELSE
+                    Go back to checking light detector
+                ENDIF
+
+        ELSE IF laser is blocked THEN
+            Run Intrusion_Logging()
+            INPUT 'Continue monitoring?'
+                IF answer == NO THEN
+                    Turn system OFF
+                    EXIT LOOP
+                ELSE
+                    Go back to checking light detector
+                ENDIF
+        ENDIF
+    ENDLOOP
+
+END
+
+
+START Minute_logging()
+    
+    LOOP forever
+        INPUT 'Is system ON?'
+            IF answer == YES THEN
+                Record current time
+                Save time to memory variable
+                Wait 1 minute
+
+            ELSE
+                Wait 1 minute
+                END MinuteLogging
+            ENDIF
+    ENDLOOP
+
+END Minute_logging
+
+
+Start Intrusion_logging()
+    
+    Record intrusion time
+    Activate buzzer
+    Save intrusion time to memory
+    END IntrusionLogging
+
+END Intrusion_logging
+
+
+
+
+## Development and Integration
