@@ -140,3 +140,64 @@ END Intrusion_logging
 
 
 ## Development and Integration
+
+
+Add your first attempt as a code window in your markdown documentation:
+eg: 
+
+ ```Python 
+
+#Enter code here
+
+ ```
+
+
+## Testing and Debugging
+
+### Test Cases
+#### Buzzer Output:
+| Test Case | Input     | Expected Output   |
+|---------- |---------- |----------------   |
+| Laser beam untouched | Light detector continuously recieves the laser light | System waits and does not trigger the buzzer |
+| Intruder enters rooms | Laser beam is broken; light detector is triggered | Buzzer activates instantly to alert user. |
+
+
+WRITE A PARAGRAPH EVALUATING
+
+
+#### Time Logging Process:
+| Test Case | Input     | Expected Output   |
+|---------- |---------- |----------------   |
+| Intruder inside room | Laser beam stays broken while person is inside | System waits and does not log a final time yet |
+| Intruder leaves room | Laser beam is restored; light detector recieves light again | System captures the exact current time as the final time. |
+
+
+WRITE A PARAGRAPH EVALUATING
+
+
+#### Memory System Process:
+| Test Case | Input     | Expected Output   |
+|---------- |---------- |----------------   |
+| Intruder inside room | Laser beam stays broken as time passes | System overwrites the previous time; replaces it with the current time in the memory |
+| Intruder leaves room | Laser beam is restored | System stops deleting, retains the final exit time and saves it. |
+
+
+WRITE A PARAGRAPH EVALUATING
+
+
+#### Data Storing Process:
+| Test Case | Input     | Expected Output   |
+|---------- |---------- |----------------   |
+| System is turned off | Cables and wires are disconnected or switches are turned off | System completely shuts down, but the final time is kept safe in the memory variable |
+| System is turned back on | Cables and wires are connected and switches are turned on | System powers up and successfully displays the final time before the shutdown. |
+
+
+WRITE A PARAGRAPH EVALUATING
+
+
+### Final Product
+
+
+Film a video of your final product working. Include this in your Github repo if it fits, or submit separately to Google Classroom.
+
+Include all final Thonny / VS Code files and folder structure in your Github, all test cases in your documentation, and include all commits. 
