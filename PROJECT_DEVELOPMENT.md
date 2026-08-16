@@ -8,7 +8,7 @@ Living in a multiple story home means I spend a lot of time downstairs, leaving 
 
 -------- Proposed Solution --------
 
-An open loop security system shines a laser into a light detector triggering a buzzing noise to alert the user when an intruder blocks the beam. To stop someone from unplugging the device, the memory overwrites the time every minute while the room is occupied but locks the time when they exit. This means if the system is turned off the memory still retains the very last time it was active, letting you know exactly when it stopped working.
+An open loop security system shines a laser into a light detector triggering a buzzing noise when the beam is blocked to alert the intruder that their being logged. To stop someone from unplugging the device, the memory overwrites the time every minute while the room is occupied but locks the time when they exit. This means if the system is turned off the memory still retains the very last time it was active, letting you know exactly when it stopped working.
 
 ### Key Actions
  - Laser shines into a light detector triggering a buzzing noise.
@@ -19,7 +19,7 @@ An open loop security system shines a laser into a light detector triggering a b
 ### Functional Requirements
 The functional requirements for my security system list the key actions the mechanism needs to follow to detect intrusions and record important information:
  
-Buzzer Output - The system needs to activate a buzzer the exact moment the laser beam is broken and the light detector is triggered to alert the user that someone has entered the room.
+Buzzer Output - The system needs to activate a buzzer the exact moment the laser beam is broken and the light detector is triggered to alert the intruder that the logging has started. This will hopefully add extreme paranoia onto the suspect.
 
 Memory System Process - Every minute the system should delete the last time that was stored and replace it with a new one so the memory always stays updated. 
 
@@ -33,7 +33,7 @@ Data Storing Process -  If system is switched off it must retain the very last t
 | Test Case | Input     | Expected Output   |
 |---------- |---------- |----------------   |
 | Laser beam untouched | Light detector continuously recieves the laser light | System waits and does not trigger the buzzer |
-| Intruder enters rooms | Laser beam is broken; light detector is triggered | Buzzer activates instantly to alert user. |
+| Intruder enters rooms | Laser beam is broken; light detector is triggered | Buzzer activates instantly to alert intruder. |
 
 #### Time Logging Process:
 | Test Case | Input     | Expected Output   |
@@ -152,6 +152,8 @@ eg:
  ```
 
 
+
+
 ## Testing and Debugging
 
 ### Test Cases
@@ -159,7 +161,7 @@ eg:
 | Test Case | Input     | Expected Output   |
 |---------- |---------- |----------------   |
 | Laser beam untouched | Light detector continuously recieves the laser light | System waits and does not trigger the buzzer |
-| Intruder enters rooms | Laser beam is broken; light detector is triggered | Buzzer activates instantly to alert user. |
+| Intruder enters rooms | Laser beam is broken; light detector is triggered | Buzzer activates instantly to alert intruder. |
 
 
 WRITE A PARAGRAPH EVALUATING
