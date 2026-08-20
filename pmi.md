@@ -1,5 +1,0 @@
-### Peer Evaluation: PMI
-| Person | Plus | Minus | Implication |
-|--------|------|-------|-------------|
-| Liam S | Very interesting concept, and I like the logs of when the door is open, closed, and operation statues. | Uhhhh, I don't really have much here, I'm just wondering whether the 5 second time intervals is too slow, also the wires are a little messy, but that's to be expected. | 9/10 project, 5 second interval might be an issue, but it's probably just me. Overall, very good |
-| Fayaaz K | The machine works extremely well, and the checking of when the system was operational is a really good idea, as users can check if the door-logger was on or not | Not really any major issues I can note, the 5 second interval might be a bit too long | The overall idea and execution of said idea works extremely well and meets the functional and non-functional requirements well |   
