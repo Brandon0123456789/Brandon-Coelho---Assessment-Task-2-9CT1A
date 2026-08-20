@@ -228,7 +228,7 @@ while not isLaserClear:
 
 ## Testing and Debugging
 
-### Test Cases
+### Test Case Evaluation
 #### Buzzer Output:
 | Test Case | Input     | Expected Output   |
 |---------- |---------- |----------------   |
@@ -236,9 +236,9 @@ while not isLaserClear:
 | Intruder enters rooms | Laser beam is broken; light detector is triggered | Buzzer activates instantly to alert intruder. |
 
 
-This worked very well, but only when I used a 10 K olm resistor for my voltage divider. We don't really know why it works except that a ratio is made by the two resistors, but Daniel Lyon's Dad who is an electrican said you don't need to know exactly HOW it works, just that it does, and how use it. The 10 K olm resistor meant we had the maximum u16 range, with at dark light levels averaged 1500 but with the laser shining into it at around 60000. Suprisingly, even in dark and very bright areas when the laser shone at the LDR the voltage would be 60000, then in light areas drop to around 50000. This made us toggle the system so that when the LDR detectors a light level of under 55000, it will detect.
+The voltage divider worked very well when we used a 10 kΩ resistor. Using it gave us the maximum possible U16 range. In dark conditions the readings averaged around 1500 while shining the laser directly at the LDR produced readings of approximately 60000. Interestingly, the reading stayed around 60000 when the laser was shining on the LDR even in both dark and very bright environments. In normal light conditions the reading dropped to around 50000. Due to this we programmed the system so that when the LDR detects a light level below 55000, it will activate.
 
-The green buzzer broke, so we used Brandon's but then his broke. Rachael then told us to use the passive buzzer from Daniel's engineering kit, so we used that. We first tested the frequency of 440 (A note, octave 4), and liked it so stuck with it.
+During testing, the green buzzer stopped working so we initially used my buzzer but this also stopped working. We were then suggested to use the passive buzzer from Daniel’s engineering kit. We tested different frequencies and found that 440 Hz (A note, octave 4) worked well. We decided to keep this frequency for our final system.
 
 
 #### Time Logging Process:
@@ -248,7 +248,11 @@ The green buzzer broke, so we used Brandon's but then his broke. Rachael then to
 | Intruder leaves room | Laser beam is restored; light detector recieves light again | System captures the exact current time as the final time. |
 
 
-WRITE A PARAGRAPH EVALUATING
+When the time was first logged, the system only recorded when the person closed the door. This was because the time was overwritten every minute until the LDR detected the laser again. This meant we could not determine when the person entered the room but only when they left (this is if they even close the door). The system was also limited to one log because if someone entered the room again the previous time would be replaced by the new time.
+
+To fix these issues, instead of overwriting the file with the 'w' tuple in the 'open()' method, we replaced it with the 'a' argument instead. The 'w' argument overwrites the existing file while 'a' adds new information to the end of the file. We also changed the system so that it records the time when the door is opened. Once the door is opened, the laser shines every five seconds. If the buzzer has just been activated it waits two seconds instead, as the buzzer runs for three seconds. The system then waits 0.5 seconds for the LDR to detect the laser. If the LDR detects the laser it remains on and waits for the door to be opened again. The same .txt file also records the time when the door is closed. This gives us a much better indication of when the door was opened and when it was closed again.
+
+When we implemented and tested this system, the laser immediately turned off when it was tripped and a new time was added to the log. After five seconds, the laser turned on for 0.5 seconds before turning off again. However,one problem is if the intruder closes the door when they enter, the LDR will detect the laser, the laser will remain on and the system will record the time that the door was closed. Therefore, this test case was considered unsuccessful. 
 
 
 #### Memory System Process:
@@ -258,7 +262,7 @@ WRITE A PARAGRAPH EVALUATING
 | Intruder leaves room | Laser beam is restored | System stops deleting, retains the final exit time and saves it. |
 
 
-WRITE A PARAGRAPH EVALUATING
+This test was successful. When the laser beam remained broken the system continued overwriting the previous time with the current time, meaning the memory always showed the most recent time. When the intruder left and the laser beam was restored the system stopped overwriting and saved the final time. This meant we could accurately record approximately when the intruder left the room.
 
 
 #### Data Storing Process:
@@ -268,7 +272,7 @@ WRITE A PARAGRAPH EVALUATING
 | System is turned back on | Cables and wires are connected and switches are turned on | System powers up and successfully displays the final time before the shutdown. |
 
 
-WRITE A PARAGRAPH EVALUATING
+We needed a way to detect if someone sabotaged the system by turning it off. To do this, the system records the current time in a separate .txt file every five seconds then overwrites the previous time using the 'w' argument. If the system is turned off, the last recorded time remains in the file allowing us to see approximately when it was turned off and identify who may have interfered with it. Overall, no changes were made to our original idea.
 
 
 ### Final Product
@@ -280,7 +284,7 @@ ALREADY SENT IT TO GOOGLE CLASSROOM!!!
 
 
 
-## Evaluation
+## Final Evaluation
 
 ### Peer Evaluation: PMI
 | Person | Plus | Minus | Implication |
@@ -289,64 +293,27 @@ ALREADY SENT IT TO GOOGLE CLASSROOM!!!
 | Fayaaz K | The machine works extremely well, and the checking of when the system was operational is a really good idea, as users can check if the door-logger was on or not | Not really any major issues I can note, the 5 second interval might be a bit too long | The overall idea and execution of said idea works extremely well and meets the functional and non-functional requirements well |   
 
 
-
-
-
-
-
-
-
-
-
-## Testing and Debugging
-
-### Test Cases
-#### Buzzer Output:
-| Test Case | Input     | Expected Output   |
-|---------- |---------- |----------------   |
-| Laser beam untouched | Light detector continuously recieves the laser light | System waits and does not trigger the buzzer     |
-| Intruder enters rooms | Laser beam is broken; light detector is triggered | Buzzer activates instantly to alert user. |
-
-This worked very well, but only when I used a 10 K olm resistor for my voltage divider. We don't really know why it works except that a ratio is made by the two resistors, but Daniel Lyon's Dad who is an electrican said you don't need to know exactly HOW it works, just that it does, and how use it. The 10 K olm resistor meant we had the maximum u16 range, with at dark light levels averaged 1500 but with the laser shining into it at around 60000. Suprisingly, even in dark and very bright areas when the laser shone at the LDR the voltage would be 60000, then in light areas drop to around 50000. This made us toggle the system so that when the LDR detectors a light level of under 55000, it will detect.
-
-The green buzzer broke, so we used Brandon's but then his broke. Rachael then told us to use the passive buzzer from Daniel's engineering kit, so we used that. We first tested the frequency of 440 (A note, octave 4), and liked it so stuck with it.
-
-#### Time Logging Process:
-| Test Case | Input     | Expected Output   |
-|---------- |---------- |----------------   |
-| Intruder inside room | Laser beam stays broken while person is inside | System waits and does not log a final time yet |
-| Intruder leaves room | Laser beam is restored; light detector recieves light again | System captures the exact current time as the final time. |
-
-When the time is logged you only know when the person closed the door, because the time overrights every minute until the LDR detectors light again. This means we don't know when they came into the room, only when they left, or even just went they closed the door presuming they did. Furthermore, the system is then limited to one log, because if they come inside again you only see the last time the door was closed. So to fix these issues, instead of overwriting the file with the 'w' tuple in the 'open()' method, we replaced it with the 'a' argument instead. In addition, we made it so the time logs when the door was opened. Once the door is opened, every five seconds the laser will shine (or 2 seconds if the buzzer was just activated, which takes 3 seconds), wait 0.5 seconds are the LDR to detect, and if the LDR does it will stay on and wait for the door to be opened again. As well as this, in the same .txt file it will log the time the door is closed. This means you have a good idea of when the door is opened, and when perhaps it was closed again.
-
-When we implemented this and tested it, when the laser was tripped, it instantly turned off, appended a log, then after 5 seconds shone are half a second then turned off again, unless the door was closed again and the LDR detected the light, making it stay on and finally logging when the door was closed. So no, this test case failed, not because of faulty code but a turn to a better idea, so we never tested it.
-
-#### Status Logging Process:
-| Test Case | Input     | Expected Output   |
-|---------- |---------- |----------------   |
-| System is turned off | Cables and wires are disconnected or switches are turned off | System completely shuts down, but the final time is kept safe in the memory variable |
-| System is turned back on | Cables and wires are connected and switches are turned on | System powers up and successfully displays the final time before the shutdown. |
-
-We needed a way to deal with somebody sabotaging the system and turning it off. So, every five seconds the time will be logged in a seperate .txt file, then five seconds later it will overwrite the previous (using 'w') so that if the system is turned off then the last time it was on will be logged. This means we can see who entered the bedroom at that time, and messed with the system. Overall no changed to our original idea for this one.
-
-### Final Evaluation
+### Final Evaluation Questions
 
 #### Evaluate your Final Test in Relation to Functional Criteria
-The system successfully could detect with no error when the door was opened, and then closed and it could differentiate between these because when the door is opened the laser cannot reach the LDR. The buzzer worked very well, and the data logging process for the door was perfect. Instead of overwriting the time until the door is closed, it would append the time to a .txt file when it was opened AND closed with great accuracy and speed. Last minute, we made it so a new one of these doorLog files would be made, separated by the dates, so we have one for everyday so it doesn't get too big and lead to a doomscrolling session. The status logger worked very well. Using the '_thread' library for MicroPython, it could successfully log the time every 5 seconds, overwriting itself when 5 seconds elapsed again. this meant we could easily know when the system was last turned off and find out who preformed the sabotage. This also improved the security of the system so people could know not to touch it. The RTC we used, the DS1302 with a driver that was found on GitHub, also worked very well. It kept the time accurately, and the driver made it very easy to read and write the time. Overall, for the functional parts the system was very successful.
+The system was able to detect when the door was opened and closed with no errors and it could tell the difference because when the door is opened the laser can no longer reach the LDR. The buzzer also worked really well and the data logging for the door worked perfectly. Instead of replacing the time until the door was closed, it would add the time to a .txt file when the door was both opened and closed, doing this quickly and accurately. At the last minute we changed it so that a new doorlog file would be created for each date, meaning there was one file for every day. This stopped the file from becoming too large and making it take forever to look through. The data storing process also worked very well because it could record the time every 5 seconds and overwrite the previous time once another 5 seconds had passed. This meant we could easily check when the system was last turned off and work out who may have interfered with it. It also made the system more secure because people would know that touching it could be detected. The RTC we used, the DS1302, also worked very well with the driver we found on GitHub. It kept the time accurate and the driver made it simple to read and write the time. Overall, the functional parts of the system were very successful and worked how we wanted them to.
+
 
 #### Evaluate your Final Test in Relation to Non-Functional Criteria
-The non-functional criteria was met to the full extent. As we said before, laser could differenciate the difference between the door opened and closed very well. This is because, again, when the door opens the tripwire is set off, and when it says that way the door blocks the laser. So, every five seconds when the laser turns on for half a second to check is the LDR picked up the light, if it doesn't pick it up then the door is opened, and if it does then it is closed.
-When the laser first turns on at the start of the program, we give the LDR 0.5 seconds to detect the laser, so it doesn't mulfunction and think the laser is turned off if we check too quickly. Same with checking whether the door is closed, we need to make sure it doesn't think it's still open. However, once we know that the laser is primed (the door is closed), then the program checks every 20ms instead, for maximum efficiency. This is because we have already given it enough time to check initally whether the laser is hitting the LDR or not, so after we have made sure it has detected the laser, there is no harm in checking a lot of times.
-The program is highly efficient as well because I made sure it only turns on the laser to check if the door is closed again every 5 seconds, minimising the power required. The Pico also felt quite cold to the touch while running, indicating a low workload. 
-Overall, we met all our non-functional criteria, which made the program not only functional and working, but fast, reliable, and needing less power to operate. This raises the device to a high standard.
+The non-functional criteria was met to a full extent. The laser could easily differentiate between the door being opened and closed because when the door opens it blocks the laser from reaching the LDR. Every five seconds, the laser turns on for half a second to check the LDR. If it detects the laser, the door is closed and if it does not, the door is open. When the laser first turns on we give the LDR 0.5 seconds to detect it so the system does not malfunction by checking too quickly. Once the laser is detected the program checks every 20ms for better efficiency. The program also saves power by only turning the laser on every five seconds and the Pico stayed quite cool while running showing it was not under a high workload. Overall, we met all of our non-functional criteria by making the system fast, reliable, and power efficient.
+
 
 #### Evaluate your Final Performance in Relation to the Identified Need
-Due to the success in meeting all the functional requirements, and our non-functional requirements enhancing the device, our needs where absolutely met. The system could successfully log whenever the door was opened for closed, with the added security of the status logger. As well as this, it being fast, reliable, and having low power requirements, means it works to a high standard is and something to depend upon. This means if, say, Daniel Lyon's sister comes into Daniel's room looking to plunder a hairbrush, the device will log when she came in and out, as well as hopefully invoke paranoia since she will realise that she is not slick. Then if she comes up with the bright idea to tamper with the system, it will log when she did it, leaving great evidence for an interrogation.
+Due to the success in meeting all the functional requirements and our non-functional requirements enhancing the device, our needs where absolutely met. The system could successfully log whenever the door was opened or closed, with the added security of the data storing process. Due to it being fast, reliable and having low power requirements, it means it works to a high standard and can be something to depend upon. For example, if my friend comes into my room looking to upset my layout, the device will log when they came in and out, as well as hopefully invoke paranoia since they will realise that they are now getting logged. If they try tampering with the system, it will log when they did it leaving great evidence for me.
+
 
 #### Evaluate your Project in Relation to Project Management
-We managed time with our project well, only behind behind by about half a week at times. For the main file, we first researched what we need, being threads and the 'open()' method. We then worked on making sure the laser and the LDR worked somewhat well, then moved on to making the log for the door, and the status log using the '_thread' library. The whole time, the 'timestamp' variable was set to 'None', until we added the programming for the RTC, then configured the logs to fit the time. We then ran some tests to see the light level when the LDR was shone by the laser (60000), then calibrated the minimum light level required to set off the system (55000). Then we wired it up to a door and tested to see if the whole thing worked (which it did), and filmed it.
+We managed time with our project well but sometimes fell behind by around half a week at times due to me having to go to the Ski Trip in Week 3. For the main file, we first researched what we needed which was threads and the 'open()' method. We then worked on making sure the laser and the LDR worked somewhat well, then moved on to making the log for the door and the data storing process using the '_thread' library. The whole time, the 'timestamp' variable was set to 'None', until we added the programming for the RTC, then configured the logs to fit the time. We then ran some tests to see the light level when the LDR was shone by the laser (60000), then calibrated the minimum light level required to set off the system (55000). Then we wired it up to a door and tested to see if the whole thing worked (which happened), and filmed it (Attached on the google classroom).
 
 #### Evaluate your Project in Relation to Peer Feedback.
 
+The peer feedback was mostly very positive with both people saying that the system worked extremely well and that the door logs and operation status were useful features. Liam gave the project a 9/10 and said that the main possible issue was the 5 second checking interval, while Fayaaz also mentioned that the 5 seconds could be a little too long. This is something we could improve in the future by making the system check more often, although the 5 second interval was made to save power. Liam also mentioned that the wires were a little messy, which is another area we could improve by organising the wiring better. Overall, the feedback showed that the project worked very well and met both the functional and non-functional requirements with only a few small improvements that could be made.
 
 #### Justify Future Improvements you could make to your Final Product
+
+There are a few improvements we could make to the final product in the future. One improvement would be reducing the 5 second checking interval due to both classmates mentioning that this could be a little too slow. However, this would use more power, meaning we would need to find a good balance between speed and efficiency. Another improvement would be making the wiring less messy and more organised which would make the device look cleaner and easier to work with. We could also make the device more secure so the components are better protected. These improvements would make the final product more reliable, easier to use and better overall.
